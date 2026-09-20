@@ -1,0 +1,21 @@
+<Project Sdk="Godot.NET.Sdk/4.7.2">
+  <PropertyGroup>
+    <TargetFramework>net11.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>DotFly.Sample.Godot</RootNamespace>
+    <!-- The Godot SDK manages its own settings; the repo-wide props still apply (net11, CPM). -->
+    <IsAotCompatible>false</IsAotCompatible>
+    <IsTrimmable>false</IsTrimmable>
+    <EnableTrimAnalyzer>false</EnableTrimAnalyzer>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Godot builds the game in Debug for the editor; the engine libraries must still be optimised
+         (the SIMD kernel is ~25x slower unoptimised), so their configuration is pinned to Release. -->
+    <ProjectReference Include="..\..\src\DotFly.Core\DotFly.Core.csproj" SetConfiguration="Configuration=Release" />
+    <ProjectReference Include="..\..\src\DotFly.Cpu\DotFly.Cpu.csproj" SetConfiguration="Configuration=Release" />
+    <ProjectReference Include="..\..\src\DotFly.Engine\DotFly.Engine.csproj" SetConfiguration="Configuration=Release" />
+  </ItemGroup>
+</Project>

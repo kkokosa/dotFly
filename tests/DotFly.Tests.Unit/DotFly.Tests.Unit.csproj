@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\DotFly.Core\DotFly.Core.csproj" />
+    <ProjectReference Include="..\..\src\DotFly.Data\DotFly.Data.csproj" />
+    <ProjectReference Include="..\..\src\DotFly.Cpu\DotFly.Cpu.csproj" />
+    <ProjectReference Include="..\..\src\DotFly.Engine\DotFly.Engine.csproj" />
+    <ProjectReference Include="..\..\src\DotFly.Adapters.MLNet\DotFly.Adapters.MLNet.csproj" />
+    <ProjectReference Include="..\..\src\DotFly.Adapters.Onnx\DotFly.Adapters.Onnx.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Fixtures\**" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ML.OnnxConverter" />
+    <PackageReference Include="xunit.v3" />
+    <PackageReference Include="xunit.runner.visualstudio" />
+  </ItemGroup>
+
+</Project>

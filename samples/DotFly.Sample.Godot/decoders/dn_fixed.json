@@ -1,0 +1,7 @@
+{
+  "_comment": "FIXED decoder gains, chosen by hand and never fitted. Features are the mean rates (Hz) of DNp04_L, DNp04_R and DNp01 (Giant Fiber) over 30 ms - the looming-escape descending neurons that LC4 drives in this checkpoint. yaw = yawGain * (DNp04_L - DNp04_R) turns away from the looming side; speed = idle + speedGain * DNp01. The gains are the demo's engineering choice, as in the Xenova/Fly64 demos; only the wiring LC4 -> DNp04/DNp01 is measured.",
+  "origin": "Fixed",
+  "yawGainDegPerSecPerHz": 1.5,
+  "speedGainPxPerSecPerHz": 2.0,
+  "idleSpeedPxPerSec": 30.0
+}

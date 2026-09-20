@@ -1,0 +1,23 @@
+{
+  "_comment": "FIXED decoder gains for the 3D scene, chosen by hand, never fitted. Readouts are mean rates (Hz) over 30 ms. Speeds and climb rates are in BODY LENGTHS per second (a real Drosophila cruises at 100-170 BL/s) and are multiplied by the body length at run time, so the fly flies like a fly at any scale. Speeds and climb rates are in BODY LENGTHS per second (a real Drosophila cruises at 100-170 BL/s) and are multiplied by the body length at run time, so the fly flies like a fly at any scale. Flight: yaw = escapeYawGain*(DNp04_L-DNp04_R) + optomotorYawGain*((HS_R+H2_L)-(HS_L+H2_R)) - centeringYawGain*(HS_R-HS_L) (+ a casting turn while odor is fading). HS (front-to-back) and H2 (back-to-front) together separate rotation (counter-turn) from translation along a wall (centering: turn away from the side with more flow); with HS alone the fly steered into walls; climb = optomotorClimbGain*mean(VS) + a random vertical drift replaced by a random vertical drift of +-roamClimb re-drawn every 4-10 s, bounded by the floor and ceiling (the fly has no altimeter and samples heights); in odor: climb = +-verticalCast, the sign reversed half of the times the readout falls (vertical klinotaxis) and at random while casting; descend toward a patch when odor is strong; speed = idleSpeed + gfSpeedGain*DNp01. Smell: ORN_DM1 rate = odorHzPerUnit * concentration; 'odor detected' = DM1_lPN > odorDetectHz. Odor DIRECTION is not resolved by the wiring (both DM1 PNs respond alike to one antenna), so the search is klinotaxis decided by the decoder: surge upwind while the PN rate rises (yaw -= surgeYawGain*(wind_L-wind_R): wind on the antennae = JO-C/E input at windHz, read out from the lateralized AMMC012/WED080 wind interneurons), tumble (castYawDegPerSec for 0.8 s, alternating sides) when it has fallen for 0.25 s; while tracking fly at trackingSpeed and low; when the PN drops below odorDetectHz the odor is remembered for odorMemorySeconds: first a U-turn back into the tube, then zigzag casts of alternating sign and growing duration, until the readout returns; near the source (PN > odorNearHz) descend, and land when a patch is under the fly. Feeding: landed on sugar -> claw_tpGRN + LB3 -> MN9; MN9 (smoothed over 0.3 s) > feedMn9Hz = proboscis extension / feeding (the Shiu et al. pathway); measured: with odor and wind inputs on, the GRN -> MN9 response drops from 95 to 35 Hz in this model. The wiring is measured; every number here is the demo's choice.",
+  "origin": "Fixed",
+  "escapeYawGainDegPerSecPerHz": 1.2,
+  "optomotorYawGainDegPerSecPerHz": 0.2,
+  "centeringYawGainDegPerSecPerHz": 0.3,
+  "optomotorClimbGainBlPerSecPerHz": 0.07,
+  "roamClimbBlPerSec": 8.0,
+  "verticalCastBlPerSec": 12.0,
+  "idleSpeedBlPerSec": 120.0,
+  "gfSpeedGainBlPerSecPerHz": 1.0,
+  "odorHzPerUnit": 120.0,
+  "odorDetectHz": 110.0,
+  "odorNearHz": 270.0,
+  "castYawDegPerSec": 150.0,
+  "odorMemorySeconds": 8.0,
+  "castSpeedBlPerSec": 35.0,
+  "tumbleSeconds": 0.65,
+  "windHz": 60.0,
+  "surgeYawGainDegPerSecPerHz": 0.6,
+  "trackingSpeedBlPerSec": 80.0,
+  "feedMn9Hz": 15.0
+}

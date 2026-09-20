@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Checkpoint builders for dotFly — reads MaleCNS and FlyWire connectome releases (Arrow/Feather) and produces .dfb checkpoints, sub-graphs and control graphs.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DotFly.Core\DotFly.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Apache.Arrow" />
+    <PackageReference Include="Apache.Arrow.Compression" />
+    <PackageReference Include="Parquet.Net" />
+  </ItemGroup>
+
+</Project>

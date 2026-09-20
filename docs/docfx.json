@@ -1,0 +1,42 @@
+{
+  "$schema": "https://raw.githubusercontent.com/dotnet/docfx/main/schemas/docfx.schema.json",
+  "metadata": [
+    {
+      "src": [
+        {
+          "files": [
+            "src/DotFly.Core/DotFly.Core.csproj",
+            "src/DotFly.Cpu/DotFly.Cpu.csproj",
+            "src/DotFly.Data/DotFly.Data.csproj",
+            "src/DotFly.Engine/DotFly.Engine.csproj",
+            "src/DotFly.Adapters.Onnx/DotFly.Adapters.Onnx.csproj",
+            "src/DotFly.Adapters.MLNet/DotFly.Adapters.MLNet.csproj"
+          ],
+          "src": ".."
+        }
+      ],
+      "dest": "api",
+      "properties": { "TargetFramework": "net11.0" },
+      "enumSortOrder": "declaringOrder"
+    }
+  ],
+  "build": {
+    "content": [
+      { "files": ["**/*.{md,yml}"], "exclude": ["_site/**", "obj/**"] }
+    ],
+    "resource": [
+      { "files": ["images/**"] }
+    ],
+    "output": "_site",
+    "template": ["default", "modern"],
+    "globalMetadata": {
+      "_appName": "dotFly",
+      "_appTitle": "dotFly",
+      "_appFooter": "dotFly — GPL-3.0. Connectome data: MaleCNS v1.0 and FlyWire, CC BY 4.0.",
+      "_enableSearch": true,
+      "_disableContribution": true,
+      "pdf": false
+    },
+    "sitemap": { "baseUrl": "https://kkokosa.github.io/dotFly/" }
+  }
+}

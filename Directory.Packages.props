@@ -1,0 +1,27 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Runtime -->
+    <PackageVersion Include="System.Numerics.Tensors" Version="11.0.0-rc.1.26425.128" />
+    <!-- Data (Arrow IPC / Feather readers for MaleCNS and FlyWire releases) -->
+    <PackageVersion Include="Apache.Arrow" Version="23.0.0" />
+    <PackageVersion Include="Apache.Arrow.Compression" Version="23.0.0" />
+    <PackageVersion Include="Parquet.Net" Version="6.1.0" />
+    <!-- Readout adapters (separate packages; the engine has no ML dependency) -->
+    <PackageVersion Include="Microsoft.ML.OnnxRuntime" Version="1.30.0" />
+    <PackageVersion Include="Microsoft.ML" Version="5.0.0" />
+    <PackageVersion Include="Microsoft.ML.OnnxConverter" Version="0.23.0" />
+    <!-- CLI -->
+    <PackageVersion Include="Spectre.Console" Version="0.57.2" />
+    <PackageVersion Include="Spectre.Console.Cli" Version="0.55.0" />
+    <!-- Testing -->
+    <PackageVersion Include="xunit.v3" Version="4.0.1" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="4.0.0" />
+    <!-- Benchmarking -->
+    <PackageVersion Include="BenchmarkDotNet" Version="0.15.8" />
+    <!-- Versioning -->
+    <PackageVersion Include="MinVer" Version="8.0.0" />
+  </ItemGroup>
+</Project>

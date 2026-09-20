@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dotfly_main3d"]
+
+[ext_resource type="Script" path="res://FlyBrain3D.cs" id="1_brain"]
+[ext_resource type="Script" path="res://Arena.cs" id="2_arena"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("2_arena")
+
+[node name="FlyBrain" type="Node" parent="."]
+script = ExtResource("1_brain")

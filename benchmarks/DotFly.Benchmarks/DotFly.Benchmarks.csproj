@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\DotFly.Core\DotFly.Core.csproj" />
+    <ProjectReference Include="..\..\src\DotFly.Cpu\DotFly.Cpu.csproj" />
+    <ProjectReference Include="..\..\src\DotFly.Engine\DotFly.Engine.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" />
+  </ItemGroup>
+
+</Project>

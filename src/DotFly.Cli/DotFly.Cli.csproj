@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>dotfly</ToolCommandName>
+    <Description>Command-line tool for dotFly — build, inspect, run and benchmark fly-connectome checkpoints. Install with: dotnet tool install -g DotFly.Cli</Description>
+    <PackageTags>connectome;drosophila;cli;dotnet-tool;malecns;flywire;spiking</PackageTags>
+    <!-- Spectre.Console.Cli relies on reflection and is not AOT-annotated; the libraries stay
+         AOT-compatible, the CLI exe opts out of the analyzers (AOT publish is revisited in M6). -->
+    <IsAotCompatible>false</IsAotCompatible>
+    <IsTrimmable>false</IsTrimmable>
+    <EnableTrimAnalyzer>false</EnableTrimAnalyzer>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DotFly.Core\DotFly.Core.csproj" />
+    <ProjectReference Include="..\DotFly.Data\DotFly.Data.csproj" />
+    <ProjectReference Include="..\DotFly.Cpu\DotFly.Cpu.csproj" />
+    <ProjectReference Include="..\DotFly.Engine\DotFly.Engine.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Spectre.Console" />
+    <PackageReference Include="Spectre.Console.Cli" />
+  </ItemGroup>
+
+  <!-- Rename the exe to `dotfly` for Native AOT / single-file publish.
+       Opt-in via `dotnet publish -p:PublishAot=true -r <rid>`. -->
+  <PropertyGroup Condition="'$(PublishAot)' == 'true' or '$(PublishSingleFile)' == 'true'">
+    <AssemblyName>dotfly</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(PublishAot)' == 'true'">
+    <StripSymbols>true</StripSymbols>
+    <DebugType>none</DebugType>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+
+</Project>

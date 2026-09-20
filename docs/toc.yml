@@ -1,0 +1,18 @@
+- name: Introduction
+  href: index.md
+- name: Getting started
+  href: getting-started.md
+- name: The room demo
+  href: demo.md
+- name: Measured vs engineered
+  href: honesty.md
+- name: Model semantics (Brian2)
+  href: model.md
+- name: Findings
+  href: findings.md
+- name: CLI
+  href: cli.md
+- name: Roadmap
+  href: roadmap.md
+- name: API reference
+  href: api/

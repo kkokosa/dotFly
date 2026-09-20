@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Core abstractions for dotFly — checkpoint (.dfb) reader, neuron/graph tables, neuron model descriptors, backend interfaces, unmanaged memory and RNG primitives.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Numerics.Tensors" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="DotFly.Tests.Unit" />
+  </ItemGroup>
+
+</Project>

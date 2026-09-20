@@ -1,0 +1,27 @@
+<Solution>
+  <Folder Name="/benchmarks/">
+    <Project Path="benchmarks/DotFly.Benchmarks/DotFly.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/samples/">
+    <Project Path="samples/DotFly.Sample.SugarExperiment/DotFly.Sample.SugarExperiment.csproj" />
+    <Project Path="samples/DotFly.Sample.TrainReadout/DotFly.Sample.TrainReadout.csproj" />
+  </Folder>
+  <Folder Name="/docs/">
+    <File Path="CLAUDE.md" />
+    <File Path="PLAN.md" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/DotFly.Adapters.MLNet/DotFly.Adapters.MLNet.csproj" />
+    <Project Path="src/DotFly.Adapters.Onnx/DotFly.Adapters.Onnx.csproj" />
+    <Project Path="src/DotFly.Cli/DotFly.Cli.csproj" />
+    <Project Path="src/DotFly.Core/DotFly.Core.csproj" />
+    <Project Path="src/DotFly.Cpu/DotFly.Cpu.csproj" />
+    <Project Path="src/DotFly.Data/DotFly.Data.csproj" />
+    <Project Path="src/DotFly.Engine/DotFly.Engine.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/DotFly.Tests.Integration/DotFly.Tests.Integration.csproj" />
+    <Project Path="tests/DotFly.Tests.Unit/DotFly.Tests.Unit.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Simulation engine for dotFly — neuron sets, input/output ports, simulation clock, real-time driver, recorder/replay and readout adapters.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DotFly.Core\DotFly.Core.csproj" />
+    <ProjectReference Include="..\DotFly.Cpu\DotFly.Cpu.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Numerics.Tensors" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\DotFly.Core\DotFly.Core.csproj" />
+    <ProjectReference Include="..\..\src\DotFly.Data\DotFly.Data.csproj" />
+    <ProjectReference Include="..\..\src\DotFly.Cpu\DotFly.Cpu.csproj" />
+    <ProjectReference Include="..\..\src\DotFly.Engine\DotFly.Engine.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit.v3" />
+    <PackageReference Include="xunit.runner.visualstudio" />
+  </ItemGroup>
+
+</Project>

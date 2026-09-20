@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://dotfly_main"]
+
+[ext_resource type="Script" path="res://FlyBrain.cs" id="1_brain"]
+[ext_resource type="Script" path="res://FlyBody.cs" id="2_body"]
+[ext_resource type="Script" path="res://Target.cs" id="3_target"]
+
+[node name="Main" type="Node2D"]
+
+[node name="FlyBrain" type="Node" parent="."]
+script = ExtResource("1_brain")
+
+[node name="Target" type="Node2D" parent="."]
+position = Vector2(900, 360)
+script = ExtResource("3_target")
+
+[node name="Fly" type="Node2D" parent="."]
+position = Vector2(640, 360)
+script = ExtResource("2_body")
+
+[node name="HUD" type="Label" parent="."]
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 1268.0
+offset_bottom = 180.0
+theme_override_font_sizes/font_size = 15
+text = "loading checkpoint…"

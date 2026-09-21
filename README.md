@@ -54,43 +54,84 @@ thread pool so results are bit-identical at any thread count. A counter-based RN
 reproducible across CPU, GPU and replay. Inputs and outputs are float vectors bound to neuron sets, so
 any readout adapter — hand rules, a linear map, an ONNX or ML.NET model — consumes the same span.
 
-## Building
+## Quick start
 
-Requires the .NET 11 SDK (RC1 or later; pinned in `global.json`).
+This repository is three things: the **library** (`src/DotFly.*`, NuGet-style projects), the
+**CLI** (`src/DotFly.Cli`) and the **demos** (`samples/`). The connectome data are not in the
+repository (CC BY 4.0, downloaded once into the git-ignored `.data/` folder).
+
+### 1. Prerequisites
+
+- **.NET 11 SDK**, RC1 or later — the exact version is pinned in `global.json`
+  ([download](https://dotnet.microsoft.com/download/dotnet/11.0)).
+- **Godot 4.7, .NET edition** — only for the two Godot demos ([download](https://godotengine.org/download)).
+  Until .NET 11 GA, Godot needs `DOTNET_ROLL_FORWARD_TO_PRERELEASE=1` in its environment.
+- Disk: ~300 MB for the FlyWire v630 files, ~3 GB for MaleCNS v1.0 plus its checkpoints.
+
+### 2. Build and test
 
 ```powershell
+git clone https://github.com/kkokosa/dotFly
+cd dotFly
 dotnet build -c Release
-dotnet test  -c Release                                   # unit tests need no data
+dotnet test  -c Release                                   # 94 unit + integration tests; no data needed
 dotnet run --project src/DotFly.Cli -c Release -- info
 ```
 
-## Data and checkpoints
+### 3. Get a connectome
 
-Connectome releases are downloaded into the git-ignored `.data/` folder and converted once into
-memory-mapped `.dfb` checkpoints:
+**Option A — FlyWire v630 (90 MB): enough for the library, the CLI and the sugar experiment.**
+The files are in the Shiu et al. model repository:
 
 ```powershell
-# MaleCNS v1.0 flat connectome (https://male-cns.janelia.org/download/, CC BY 4.0), ~1.6 GB:
-#   .data/malecns-v1.0/body-annotations-male-cns-v1.0-minconf-0.5.feather
-#   .data/malecns-v1.0/body-neurotransmitters-male-cns-v1.0.feather
-#   .data/malecns-v1.0/connectome-weights-male-cns-v1.0-minconf-0.5.feather          (or -traced-only)
-dotnet run --project src/DotFly.Cli -c Release -- build malecns .data/malecns-v1.0 --filter superclass
-dotnet run --project src/DotFly.Cli -c Release -- build malecns .data/malecns-v1.0 --filter traced
-
-# FlyWire v630 as shipped with the Shiu et al. model (github.com/philshiu/Drosophila_brain_model):
-#   .data/shiu2024/2023_03_23_completeness_630_final.csv, 2023_03_23_connectivity_630_final.parquet
+git clone --depth 1 https://github.com/philshiu/Drosophila_brain_model .data/shiu2024
 dotnet run --project src/DotFly.Cli -c Release -- build flywire .data/shiu2024/2023_03_23_completeness_630_final.csv .data/shiu2024/2023_03_23_connectivity_630_final.parquet -m 630
-
-dotnet run --project src/DotFly.Cli -c Release -- inspect .data/malecns-v1.0/malecns-v1.0-superclass.dfb --body 10001
-dotnet run --project src/DotFly.Cli -c Release -- run .data/shiu2024/flywire-v630.dfb --stimulate <sugar GRN ids> --hz 150 --seconds 1
-dotnet run --project src/DotFly.Cli -c Release -- bench .data/malecns-v1.0/malecns-v1.0-superclass.dfb --scenario type:T4a --threads 1,4,8
-dotnet test -c Release --project tests/DotFly.Tests.Integration   # count/experiment tests; skip without .data
+dotnet run --project samples/DotFly.Sample.SugarExperiment -c Release   # 30 trials of sugar → MN9 in ~2 s
 ```
 
-`--filter superclass` keeps bodies with a `superclass` annotation (166,700 neurons; the graph used by
-the public demos); `--filter traced` keeps `status == Traced` (165,122; the official `traced-only`
-export). Edges whose presynaptic transmitter is unclear or histamine are dropped as `g += 0` no-ops;
-the structural counts stay in the checkpoint's provenance.
+**Option B — MaleCNS v1.0 (1.1 GB): needed by the room demo and the 2D demo.**
+From <https://male-cns.janelia.org/download/> ("flat files"), put these three files into
+`.data/malecns-v1.0/`:
+
+```
+body-annotations-male-cns-v1.0-minconf-0.5.feather              (~15 MB)
+body-neurotransmitters-male-cns-v1.0.feather                    (~43 MB)
+connectome-weights-male-cns-v1.0-minconf-0.5.feather            (~1.05 GB; or the 508 MB -traced-only file)
+```
+
+then build the checkpoint (a minute; writes `.data/malecns-v1.0/malecns-v1.0-superclass.dfb`):
+
+```powershell
+dotnet run --project src/DotFly.Cli -c Release -- build malecns .data/malecns-v1.0 --filter superclass
+dotnet run --project src/DotFly.Cli -c Release -- inspect .data/malecns-v1.0/malecns-v1.0-superclass.dfb
+```
+
+`--filter superclass` keeps bodies with a `superclass` annotation (166,700 neurons; the graph the
+demos use); `--filter traced` keeps `status == Traced` (165,122; the official `traced-only` export;
+needs the `-traced-only` weights file). Edges whose presynaptic transmitter is unclear or histamine
+are dropped as no-ops; the structural counts stay in the checkpoint's provenance.
+
+### 4. Run the room demo
+
+```powershell
+$env:DOTNET_ROLL_FORWARD_TO_PRERELEASE = "1"
+& "<path to>\Godot_v4.7.1-stable_mono_win64.exe" --path samples\DotFly.Sample.Godot3D
+```
+
+or open `samples/DotFly.Sample.Godot3D` in the Godot editor and press Play. Keys: `C` camera,
+`R` recurrent transmission, `E` external input, `V` vision, `O` smell/taste, `S` silence DNp04+HS,
+`Space` pause. `-- --flies 4` puts four flies in the room. The
+[sample README](samples/DotFly.Sample.Godot3D/README.md) and [docs/demo.md](docs/demo.md) explain
+everything on screen. Note: on Windows run the real Godot executable, not the winget shim
+(`godot.exe` in a `Links` folder) — the .NET module fails silently through the shim.
+
+### 5. Try the CLI
+
+```powershell
+dotnet run --project src/DotFly.Cli -c Release -- explore .data/malecns-v1.0/malecns-v1.0-superclass.dfb --stimulate type:T4a
+dotnet run --project src/DotFly.Cli -c Release -- run .data/malecns-v1.0/malecns-v1.0-superclass.dfb --stimulate "type:LC4@L" --hz 100 --seconds 1 --silence "class:Kenyon_Cell;type:lLN*"
+dotnet run --project src/DotFly.Cli -c Release -- bench .data/malecns-v1.0/malecns-v1.0-superclass.dfb --scenario type:T4a --threads 1,4,8
+```
 
 `tools/brian2_golden.py` regenerates the Brian2 reference fixtures (needs a Python environment with
 `brian2`, `pandas`, `pyarrow`; it is not part of the build).

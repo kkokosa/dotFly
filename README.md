@@ -158,7 +158,9 @@ thread writes `InputPort`s and reads `OutputPort.Snapshot` frames (lock-free), a
 adapter (`LinearAdapter`, `ThresholdAdapter`, or an ONNX/ML.NET model) turns a frame's
 values into actions — labelled *fixed*, *calibrated* or *trained*, because the graph never learns.
 `sim.Record("run.dfs")` captures spikes, input writes and output frames; `Recording.Read(...)
-.Replay(sim)` reproduces the run. `samples/DotFly.Sample.SugarExperiment` is the worked example.
+.Replay(sim)` reproduces the run. `samples/DotFly.Sample.SugarExperiment` is the worked example;
+[docs/library.md](docs/library.md) is the full tour with code for every task, and
+[docs/demo-internals.md](docs/demo-internals.md) shows how the room demo is wired.
 
 ## Demos and tools
 

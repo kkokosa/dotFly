@@ -40,6 +40,8 @@ circuitry — a valuable thing, and the only claim made here.
 ## Where to go next
 
 - [Getting started](getting-started.md) — build, download the data, build a checkpoint, run the demos.
+- [Library guide](library.md) — open a checkpoint, select neurons, simulate, read out, run in real time, record, adapt.
 - [The room demo](demo.md) — what the fly senses, what the brain computes, what the decoder decides.
+- [Inside the room demo](demo-internals.md) — the frame loop, the encoders, the readouts and the decoder, with code.
 - [CLI](cli.md) — `dotfly info | build | inspect | run | bench | explore`.
 - [API reference](api/DotFly.yml) — generated from the source.

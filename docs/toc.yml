@@ -2,8 +2,12 @@
   href: index.md
 - name: Getting started
   href: getting-started.md
+- name: Library guide
+  href: library.md
 - name: The room demo
   href: demo.md
+- name: Inside the room demo
+  href: demo-internals.md
 - name: Measured vs engineered
   href: honesty.md
 - name: Model semantics (Brian2)

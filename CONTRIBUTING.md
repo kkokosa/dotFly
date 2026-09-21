@@ -3,7 +3,10 @@
 Thanks for looking. A few rules keep this project honest and fast:
 
 - **Open an issue first** for anything beyond a typo; the roadmap features (F1–F4 in `PLAN.md`
-  §11, `docs/roadmap.md`) are the intended directions.
+  §11, [roadmap](https://kkokosa.github.io/dotFly/roadmap.html)) are the intended directions.
+- **Docs live at <https://kkokosa.github.io/dotFly/>** (sources in `docs/`, built by DocFX on every
+  push to `main`; `docfx docs/docfx.json --serve` previews locally). A change in behaviour, a rule
+  or a finding updates the matching page in the same PR.
 - **Pull requests only**, against `main`; CI (build + tests on Ubuntu and Windows) must pass; the
   maintainer reviews every change. Squash or rebase merges.
 - **Honesty in wording.** Never describe the simulation as a digital fly, an upload, or a brain that

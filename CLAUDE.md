@@ -36,7 +36,7 @@ src/DotFly.Adapters.Onnx / .MLNet   readout adapters over ONNX Runtime / ML.NET 
 tests/DotFly.Tests.Unit        xunit v3 (Microsoft.Testing.Platform runner — see global.json)
 benchmarks/DotFly.Benchmarks   BenchmarkDotNet
 tools/                         Python only for generating Brian2 golden fixtures offline
-docs/                          DocFX site (guides, honesty inventory, findings, CLI, API reference); `docfx docs/docfx.json`
+docs/                          sources of https://kkokosa.github.io/dotFly/ (DocFX; `docfx docs/docfx.json --serve` to preview)
 ```
 
 ## Code Style & Conventions

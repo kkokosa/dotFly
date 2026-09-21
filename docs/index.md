@@ -45,3 +45,5 @@ circuitry — a valuable thing, and the only claim made here.
 - [Inside the room demo](demo-internals.md) — the frame loop, the encoders, the readouts and the decoder, with code.
 - [CLI](cli.md) — `dotfly info | build | inspect | run | bench | explore`.
 - [API reference](api/DotFly.yml) — generated from the source.
+
+Source code, issues and the roadmap features: <https://github.com/kkokosa/dotFly>.

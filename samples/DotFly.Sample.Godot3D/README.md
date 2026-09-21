@@ -1,5 +1,9 @@
 # dotFly Godot 3D sample — closed visual loop, odor search, feeding
 
+> The full story of this scene — what the fly senses, what the brain computes, what the decoder
+> decides, and the code behind it — is in the docs: [the room demo](https://kkokosa.github.io/dotFly/demo.html)
+> and [inside the room demo](https://kkokosa.github.io/dotFly/demo-internals.html).
+
 A Godot 4 (.NET) 3D scene in which a fly flies around a sunlit living room (windows, a couch, two
 tables, four columns) and finds sugar, with the MaleCNS connectome (166,700 neurons, 24.9 M
 synapses) running in real time on dotFly as the only thing between its senses and its actions. The

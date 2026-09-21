@@ -16,27 +16,51 @@
         }
       ],
       "dest": "api",
-      "properties": { "TargetFramework": "net11.0" },
+      "properties": {
+        "TargetFramework": "net11.0"
+      },
       "enumSortOrder": "declaringOrder"
     }
   ],
   "build": {
     "content": [
-      { "files": ["**/*.{md,yml}"], "exclude": ["_site/**", "obj/**"] }
+      {
+        "files": [
+          "**/*.{md,yml}"
+        ],
+        "exclude": [
+          "_site/**",
+          "obj/**"
+        ]
+      }
     ],
     "resource": [
-      { "files": ["images/**"] }
+      {
+        "files": [
+          "images/**"
+        ]
+      }
     ],
     "output": "_site",
-    "template": ["default", "modern"],
+    "template": [
+      "default",
+      "modern"
+    ],
     "globalMetadata": {
       "_appName": "dotFly",
       "_appTitle": "dotFly",
-      "_appFooter": "dotFly — GPL-3.0. Connectome data: MaleCNS v1.0 and FlyWire, CC BY 4.0.",
+      "_appFooter": "dotFly — GPL-3.0 · <a href=\"https://github.com/kkokosa/dotFly\">source on GitHub</a> · connectome data: MaleCNS v1.0 and FlyWire, CC BY 4.0",
       "_enableSearch": true,
-      "_disableContribution": true,
-      "pdf": false
+      "_disableContribution": false,
+      "pdf": false,
+      "_gitContribute": {
+        "repo": "https://github.com/kkokosa/dotFly",
+        "branch": "main",
+        "path": "docs"
+      }
     },
-    "sitemap": { "baseUrl": "https://kkokosa.github.io/dotFly/" }
+    "sitemap": {
+      "baseUrl": "https://kkokosa.github.io/dotFly/"
+    }
   }
 }

@@ -1,6 +1,10 @@
 # dotFly
 
-**A native .NET inference engine for fly-connectome spiking models.**
+[![CI](https://github.com/kkokosa/dotFly/actions/workflows/ci.yml/badge.svg)](https://github.com/kkokosa/dotFly/actions/workflows/ci.yml)
+[![Docs](https://github.com/kkokosa/dotFly/actions/workflows/docs.yml/badge.svg)](https://kkokosa.github.io/dotFly/)
+[![License: GPL-3.0](https://img.shields.io/badge/license-GPL--3.0-blue.svg)](LICENSE)
+
+**A native .NET inference engine for fly-connectome spiking models.** Documentation: **<https://kkokosa.github.io/dotFly/>**
 
 dotFly runs the *Drosophila* connectomes — [MaleCNS v1.0](https://male-cns.janelia.org/) (166,700
 neurons, 25.6 M directed edges) and [FlyWire](https://flywire.ai/) v630/v783 — as leaky
@@ -13,8 +17,9 @@ Python, no server, no sidecar.
 > reproduces Brian2 spike-for-spike; the float32 SIMD backend is bit-identical across thread
 > counts and runs the whole 166,700-neuron MaleCNS in real time inside Godot; the engine API,
 > readout adapters, CLI and a 3D "fly in a living room" demo are in place. What comes next is a
-> list of features, not milestones — see [Roadmap](docs/roadmap.md). **Documentation:**
-> [docs/](docs/) (DocFX site: guides, findings, API reference).
+> list of features, not milestones — see the [roadmap](https://kkokosa.github.io/dotFly/roadmap.html).
+> **Documentation** (guides, the room demo, measured vs engineered, findings, CLI, API reference):
+> **<https://kkokosa.github.io/dotFly/>** — sources in [docs/](docs/).
 
 ## What it is — and is not
 
@@ -40,7 +45,8 @@ to make the third layer as thin and as visible as possible and to say on screen 
 the room demo labels every number as *measured*, *calibrated* or *fixed*, draws the brain's real
 spikes at real soma positions, prints the decoder's rules next to the readouts they use, and
 documents what the model turned out not to do (its own navigation circuit is silent). See
-[docs/honesty.md](docs/honesty.md) and [docs/findings.md](docs/findings.md).
+[Measured vs engineered](https://kkokosa.github.io/dotFly/honesty.html) and
+[Findings](https://kkokosa.github.io/dotFly/findings.html).
 
 ![the room demo](docs/images/room.png)
 
@@ -121,7 +127,7 @@ $env:DOTNET_ROLL_FORWARD_TO_PRERELEASE = "1"
 or open `samples/DotFly.Sample.Godot3D` in the Godot editor and press Play. Keys: `C` camera,
 `R` recurrent transmission, `E` external input, `V` vision, `O` smell/taste, `S` silence DNp04+HS,
 `Space` pause. `-- --flies 4` puts four flies in the room. The
-[sample README](samples/DotFly.Sample.Godot3D/README.md) and [docs/demo.md](docs/demo.md) explain
+[sample README](samples/DotFly.Sample.Godot3D/README.md) and [the room demo page](https://kkokosa.github.io/dotFly/demo.html) explain
 everything on screen. Note: on Windows run the real Godot executable, not the winget shim
 (`godot.exe` in a `Links` folder) — the .NET module fails silently through the shim.
 
@@ -159,8 +165,10 @@ adapter (`LinearAdapter`, `ThresholdAdapter`, or an ONNX/ML.NET model) turns a f
 values into actions — labelled *fixed*, *calibrated* or *trained*, because the graph never learns.
 `sim.Record("run.dfs")` captures spikes, input writes and output frames; `Recording.Read(...)
 .Replay(sim)` reproduces the run. `samples/DotFly.Sample.SugarExperiment` is the worked example;
-[docs/library.md](docs/library.md) is the full tour with code for every task, and
-[docs/demo-internals.md](docs/demo-internals.md) shows how the room demo is wired.
+the [library guide](https://kkokosa.github.io/dotFly/library.html) is the full tour with code
+for every task, [inside the room demo](https://kkokosa.github.io/dotFly/demo-internals.html) shows how
+the demo is wired, and the [API reference](https://kkokosa.github.io/dotFly/api/DotFly.html) is
+generated from the source.
 
 ## Demos and tools
 
@@ -220,7 +228,7 @@ tests/               unit tests (golden traces), integration tests (real checkpo
 benchmarks/          BenchmarkDotNet
 tools/               brian2_golden.py — offline generator of Brian2 reference traces (fixtures only)
 samples/             SugarExperiment, TrainReadout, Godot (2D), Godot3D (the room)
-docs/                DocFX site: guides, the room demo, measured vs engineered, findings, CLI, API reference
+docs/                sources of https://kkokosa.github.io/dotFly/ (DocFX: guides, the room demo, findings, CLI, API reference)
 ```
 
 ## Data and licences

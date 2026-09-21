@@ -18,6 +18,14 @@ public sealed class ComputeThreadPool : IDisposable
 {
     private const int SpinsBeforeSleep = 20_000;
 
+    /// <summary>
+    /// More threads than logical processors (tests of thread-count invariance, small CI runners):
+    /// no pinning, normal priority, and workers yield instead of spinning — otherwise idle
+    /// above-normal spinners pinned to the same core starve the worker that has the work (seen as
+    /// a 15-minute "hang" on a 4-vCPU Windows runner).
+    /// </summary>
+    public bool Oversubscribed { get; }
+
     private readonly Thread[] _workers;
     private readonly ManualResetEventSlim _wake = new(false);
     private volatile bool _shutdown;
@@ -47,7 +55,8 @@ public sealed class ComputeThreadPool : IDisposable
         ArgumentOutOfRangeException.ThrowIfLessThan(threadCount, 1);
         ArgumentOutOfRangeException.ThrowIfNegative(pinOffset);
         ThreadCount = threadCount;
-        Pinned = pin && threadCount > 1;
+        Oversubscribed = threadCount > Environment.ProcessorCount;
+        Pinned = pin && threadCount > 1 && !Oversubscribed;
         _pinOffset = pinOffset;
         _pinTotal = pinTotal > 0 ? pinTotal : threadCount + pinOffset;
         _workers = new Thread[threadCount - 1];
@@ -58,7 +67,7 @@ public sealed class ComputeThreadPool : IDisposable
             {
                 IsBackground = true,
                 Name = $"dotfly-compute-{index}",
-                Priority = ThreadPriority.AboveNormal,
+                Priority = Oversubscribed ? ThreadPriority.Normal : ThreadPriority.AboveNormal,
             };
             _workers[i].Start();
         }
@@ -110,7 +119,11 @@ public sealed class ComputeThreadPool : IDisposable
                     return;
                 }
 
-                if (++spins < SpinsBeforeSleep)
+                if (Oversubscribed)
+                {
+                    Thread.Yield();   // give the core to whoever holds the work
+                }
+                else if (++spins < SpinsBeforeSleep)
                 {
                     Thread.SpinWait(4);
                 }

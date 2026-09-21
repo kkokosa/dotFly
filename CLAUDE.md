@@ -4,7 +4,7 @@
 
 **dotFly** is a native C#/.NET 11 inference engine for fly-connectome spiking models (MaleCNS v1.0,
 FlyWire v630/v783) — a library that Godot, console apps and experiments link in-process. Sibling of
-dotLLM (`C:\github\ai\dotLLM`) in conventions and spirit; read `PLAN.md` for the design.
+the dotLLM project in conventions and spirit; read `PLAN.md` for the design.
 
 - **License**: GPLv3 (code). Data: CC BY 4.0, downloaded separately, never vendored.
 - **Target framework**: `net11.0` (RC/preview SDK pinned in `global.json`).

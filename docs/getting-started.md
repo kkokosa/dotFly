@@ -84,17 +84,29 @@ dotnet run --project src/DotFly.Cli -c Release -- bench .data/malecns-v1.0/malec
 
 ```csharp
 using DotFly;
+using DotFly.Core.Graph;
 
 using Brain brain = Brain.Open(".data/shiu2024/flywire-v630.dfb");
 using Simulation sim = brain.CreateSimulation(new SimulationOptions { Seed = 1 });
 
-NeuronSet sugar = brain.ByBodyIds("sugar_GRN_R", sugarIds);          // exact 64-bit IDs
+NeuronSet sugar = brain.ByBodyIds("sugar_GRN_R", sugarIds);          // exact 64-bit IDs (the 21 sugar GRNs of Shiu et al.)
 sim.Input(sugar, InputKind.PoissonToV).Fill(150f);                   // Poisson drive, 150 Hz each
 OutputPort mn9 = sim.Output(brain.ByBodyId(720575940660219265), OutputKind.Rate(50.Ms()));
-sim.OnSpikes += (step, ReadOnlySpan<int> ids) => { /* raster, counters… */ };
+long spikes = 0;
+sim.OnSpikes += (long step, ReadOnlySpan<int> ids) => spikes += ids.Length;   // every spike, no allocation
 
 sim.Run(1.Seconds());                                                 // neural time
-Console.WriteLine($"MN9 {mn9.Snapshot.Mean():F1} Hz at {sim.Clock.RealTimeFactor:F1}× real time");
+Console.WriteLine($"{brain.Provenance.Name}: {brain.NeuronCount:N0} neurons, {brain.EdgeCount:N0} edges");
+Console.WriteLine($"MN9 {mn9.Snapshot.Mean():F1} Hz in the last 50 ms; {spikes:N0} spikes in {sim.NeuralTime.TotalSeconds:F1} s neural time, " +
+                  $"{sim.Clock.WallTime.TotalMilliseconds:F0} ms wall ({sim.Clock.RealTimeFactor:F1}× real time)");
+```
+
+Output (8-core laptop, default thread count; the spike count is the same on every run and at any
+thread count — only the wall time changes):
+
+```
+flywire-v630: 127,400 neurons, 14,687,178 edges
+MN9 66.7 Hz in the last 50 ms; 13,776 spikes in 1.0 s neural time, 170 ms wall (5.9× real time)
 ```
 
 For a game loop, `new RealtimeDriver(sim).Start()` runs the network on its own thread; the game

@@ -359,7 +359,7 @@ NeuronSet mn9   = brain.ByBodyId(720575940660219265);
 sim.Input(sugar, InputKind.PoissonToV).Fill(150f);                           // 150 Hz each (Shiu semantics: rfc = 0)
 sim.Silence(brain.Query(type: "DNa02", side: Side.Left));                    // outgoing synapses zeroed
 OutputPort mn9Rate = sim.Output(mn9, OutputKind.Rate(50.Ms()), publishEvery: 20.Ms());
-sim.OnSpikes += (step, ReadOnlySpan<int> ids) => raster.Push(step, ids);     // zero-alloc callback
+sim.OnSpikes += (long step, ReadOnlySpan<int> ids) => raster.Push(step, ids); // zero-alloc callback
 using Recorder rec = sim.Record("run1.dfs");                                 // spikes + inputs + output frames
 
 for (int trial = 0; trial < 30; trial++)
